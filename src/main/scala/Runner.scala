@@ -21,14 +21,13 @@ class Calculator extends Actor {
   }
   def receive = {
     case c: Computation => router.route(c, sender()) 
-    case Answer(a) => println("42 is the answer!")
+    case Answer(a) => println("The answer is " + a)
   }
 }
 
 class Worker extends Actor {
   def receive = {
-    case Computation(n) =>
-      println("Answer f(" + n + ") = " + f(n) + "\n")
+    case Computation(n) => println("The answer for f(" + n + ") = " + f(n))
   }
 
   def f(n: Int): BigInt = {
@@ -50,5 +49,5 @@ object Runner extends App {
   val second = testActor ! Computation(1000)
   val third = testActor ! Computation(200)
   val fourth = testActor ! Computation(10)
-  val answer = testActor ! Answer(42)
+  val fifth = testActor ! Answer(42)
 }
